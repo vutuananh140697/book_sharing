@@ -1,0 +1,113 @@
+en:
+  app_name: "梟図書館"
+  home:
+    title: 梟図書館
+    subtit: Books and reviews
+    about: About
+    contact: Contact
+    copyright: "Copyright 2017 | Mugiwara | All Rights Reserved"
+    pages: pages
+    share: Share
+    search: Search
+    content_search: Search books, reviews,...
+  user:
+    sign_up: Sign Up
+    login: Login
+    sign_out: Sign Out
+    update: Save changes
+    home: Home
+    books: Books
+    reviews: My Reviews
+    favorites: Favorites
+    settings: Settings
+    write_review: Write review
+    histories: Histories
+    edit: Edit profile
+    member: "Joined "
+    review: Review
+    back: Back
+    all_reviews: View all reviews
+    all_favorites: View all favorites
+    recommendations: Recommendations
+    overview: Overview
+  flash:
+    destroy_fail: Failed. Something's wrong.
+    reviews:
+      not_found: Review not found!
+      create_success: Created review successfully!
+      update_success: Updated review successfully!
+      destroy_success: Deleted review successfully!
+    comments:
+      not_found: Comment not found!
+      create_success: Created comment successfullly!
+      update_success: Updated comment successfully!
+      destroy_success: Deleted comment successfully!
+    bookmarks:
+      create_success: Added to your list!
+      destroy_success: Removed from your list!
+    books:
+      not_found: Book not found!
+      create_success: Created book successfullly!
+      update_success: Updated book successfully!
+      destroy_success: Deleted book successfully!
+    categories:
+      not_found: Category not found!
+      create_success: Created category successfullly!
+      update_success: Updated category successfully!
+      destroy_success: Deleted category successfully!
+    feedbacks:
+      success: "Thank for your feedback!"
+    users:
+      not_found: User not found!
+      create_success: Created user successfullly!
+      update_success: Updated user successfully!
+      destroy_success: Deleted user successfully!
+  button:
+    save: Save
+    cancel: Cancel
+    delete: Delete
+    edit: Edit
+    clear: Clear
+    confirm: Are you sure?
+  users:
+    edit: Edit
+    edit_title: " | Edit profile"
+    delete: Delete
+    show:
+      no_bookmark: Share your favorite books with everyone!
+      no_review: "Loved or hated a book? Write a review and share it with others!"
+      reviews_title: "Reviews written by "
+      fav_title: "'s favorite books"
+      review_action: d a new
+      rate_action: rated a book
+      like_action: liked a review
+      comment_action: commented on a review
+    update:
+      change_pass: Change password
+      change_avatar: Change image
+  reviews:
+    show:
+      director: Author
+      producer: Published
+      genre: Category
+      country: Country
+      comments: Comments
+      author: "Author: "
+      other: "Other Reviews"
+      popular: Popular Reviews
+      review_book: Review This Book
+      more_review: More Reviews
+      book_info: Book information
+      imdb: ISBN
+      author_rate: Author's rate
+      to_comment: to comment.
+    form:
+      form_title: Book Review
+      choose_book: Select a book
+      book_name: Book title
+  comments:
+    comments:
+      first_comment: Be the first to comment.
+    form:
+      content: "Write a comment..."
+      submit: Submit

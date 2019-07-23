@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand -->
+  <%= link_to "Fukurou Toshokan", root_path, class: "nav-link" %>
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <%= link_to "Home", root_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Contact</a>
+    </li>
+    <li class="nav-item">
+      <form class="form-inline" action="/action_page.php">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+        <button class="btn btn-success" type="submit">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+    </li>
+
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <% if user_signed_in? %>
+        <%= link_to user_path(current_user), class:"nav-link dropdown-toggle", id:"navbardrop", "data-toggle": "dropdown" do %>
+          <%= current_user.username %>
+        <% end %>
+        
+        <div class="dropdown-menu">
+          <%= link_to user_path(current_user), class:"dropdown-item" do %>
+            My profile
+          <% end %>
+          <a class="dropdown-item" href="#">My reviews</a>
+          <%= link_to "Signout", destroy_user_session_path, method: :delete, class:"dropdown-item" %>
+        </div>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Signup", new_user_registration_path, class: "nav-link" %>
+        </li>
+      <% end %>
+    </li>
+  </ul>
+</nav>

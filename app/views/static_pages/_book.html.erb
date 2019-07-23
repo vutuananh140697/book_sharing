@@ -1,0 +1,45 @@
+<div class="row book-items">
+  <div class="lister-item mode-detail">
+    <div class="lister-item-image ribbonize col-sm-3">
+      <%= link_to book_path(book) do %>
+        <img src="<%= book.picture %>", class: "search-book-image">
+      <% end %>
+    </div>
+    
+    <div class="lister-item-content col-sm-9">
+      <h3 class="lister-item-header">
+        <%= link_to book_path(book), data: {turbolinks: false} do %>
+          <span><%= book.title %></span>
+        <% end %>
+      </h3>
+      
+      <div class="search-book-author text-muted text-small">
+        <% if book.authors.any? %>
+          <% book.authors.each do |author| %>
+            by <%= author.name %>
+            <% unless author == book.authors.last %>,<% end %>
+          <% end %>
+        <% end %>
+      </div>
+      
+      <div class="text-muted text-small search-book-category">
+        <% if book.categories.any? %>
+          <% book.categories.each do |category| %>
+            <%= link_to category.title, category_path(category),
+              data: {turbolinks: false} %>
+            <% unless category == book.categories.last %>/<% end %>
+          <% end %>
+        <% end %>
+      </div>
+      
+      <div class="search-book-rate">
+        <span class="average-rate" data-score="<%= book.average_rate %>"></span>
+        <span><%= book.average_rate.round(2) %></span>
+      </div>
+      
+      <p class="search-book-description">
+        <%= truncate_html(book.description, length: 200, omission: ' ...') %>
+      </p>
+    </div>
+  </div>
+</div>

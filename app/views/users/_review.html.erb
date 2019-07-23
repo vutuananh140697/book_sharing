@@ -1,0 +1,40 @@
+<div class="toggle-overflow item row">
+  <div class="image col-sm-4 col-md-3">
+    <div class="row">
+      <%= link_to user_review_path(review.user, review),
+        data: {turbolinks: false} do %>
+        <% if review.photos.any? %>
+          <%= image_tag review.photos.first.url %>
+        <% else %>
+          <%#<%= image_tag review.book.picture %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="content col-sm-8 col-md-9">
+    <h3 class="title-font user-review-title">
+      <%= link_to review_path(review), data: {turbolinks: false} do %>
+        <%= review.book.title %>
+      <% end %>
+    </h3>
+    <p class="user-review-title"><b><%= review.title %></b></p>
+    <div class="details">
+      <span>
+        <%= t "reviews.index.reviewer" %>
+        <%= link_to review.user.name, user_path(review.user),
+          data: {turbolinks: false} %>&emsp;|&emsp;
+      </span>
+      <span class="glyphicon glyphicon-time"></span>
+      <span title="<%= review.created_at.to_s %>">
+        <%= review.created_at.strftime("%d %b %Y") %>
+      </span>&emsp;|&emsp;
+      <span class="fa fa-comments fa-md"></span>
+      <%= review.comments.count %>&emsp;|&emsp;
+      <span class="fa fa-thumbs-o-up"></span>
+      <%= review.likes.count %>
+    </div>
+    <p class="row more">
+      <%= truncate_html(review.content, length: 350, omission: ' ...') %>
+    </p>
+  </div>
+</div>

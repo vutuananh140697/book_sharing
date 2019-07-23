@@ -1,0 +1,35 @@
+<div class="book-details">
+  <div class="row">
+    <div class="col-sm-8">
+
+      <h1><%= @items.size.to_s + " result(s) for " + "'#{params[:q]}'" %></h1>
+      <% if @books.any? %>
+        <hr><br>
+        <% @books.each do |book| %>
+          <%= render "book", book: book %>
+        <% end %>
+      <% end %><br>
+      
+    </div>
+    
+    <div class="col-sm-4">
+      <div class="list-cate">
+        <div class=" clearFloats bigBox">
+          <div class="h2Container gradientHeaderContainer">
+            <h2 class="brownBackground">Genres</h2><hr>
+          </div>
+          <div class="bigBoxBody">
+            <div class="bigBoxContent containerWithHeaderContent">
+              <% Category.distinct.each do |cate| %>
+                <div class="elementList ">
+                  <%= link_to cate.title, category_path(cate), class:"bookPageGenreLink" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

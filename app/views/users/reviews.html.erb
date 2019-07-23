@@ -1,0 +1,70 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-4 col-sm-4">
+
+      <div class="card hovercard">
+        <div class="cardheader">
+
+        </div>
+        <div class="avatar">
+          <%= image_tag @user.image.to_s %>
+        </div><br>
+        <div class="info">
+            <div class="title">
+                <a target="_blank" href="https://scripteden.com/"><%= @user.name %></a>
+            </div>
+            <div class="desc"><%= @user.username %></div>
+            <div class="desc">Email: <%= @user.email %></div>
+            <!--<div class="desc">Birth: <= @user.birth %></div>-->
+        </div>
+        <% if user_signed_in? && @user.id == current_user.id %>
+          <div class="text-center profile-buttons">
+            <%= link_to "Edit", edit_user_registration_path, method: :get,
+              class: "btn btn-primary btn-sm", data: {turbolinks: false} %>
+          </div>
+        <% end %><br>
+
+      </div>
+    </div>
+    
+    <div class="col-lg-8 col-sm-8">
+      <div class="profile-content">
+        <div class="widget article userLists">
+          <h2><%= t "users.show.reviews_title" %><%= @user.username %></h2>
+          <div id="list-reviews">
+            <div class="text-center" data-turbolinks="false">
+              <div class="review-pagination">
+                <%= paginate @reviews %>
+              </div>
+              <!--<p class="page-info"><= page_entries_info @reviews %></p>-->
+            </div><hr>
+            <div class="reviews">
+              <% if @reviews.any? %>
+                <% @reviews.each do |review| %>
+                  <%= render partial: "review", locals: {review: review} %>
+                  <div class="edit-review text-right">
+                    <% if user_signed_in? && @user.id == current_user.id %>
+                      <%= link_to t("button.edit"), edit_user_review_path(current_user, review),
+                        class: "btn btn-success", data: {turbolinks: false} %>
+                      <%= link_to t("button.delete"), user_review_path(current_user, review),
+                        method: :delete, data: {confirm: t("button.confirm"), turbolinks: false},
+                        class: "btn btn-danger" %>
+                    <% end %>
+                  </div><hr>
+                <% end %>
+              <% else %>
+                <% if user_signed_in? && current_user.id == @user.id %>
+                  <%= t "users.show.no_review" %>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="review-pagination text-center" data-turbolinks="false">
+              <%= paginate @reviews %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	</div>
+</div>

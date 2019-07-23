@@ -1,0 +1,42 @@
+source "https://rubygems.org"
+
+ruby "2.5.5"
+gem "rails"
+# gem "sqlite3"
+# gem "sass-rails"
+gem "uglifier"
+gem "coffee-rails"
+#gem "jquery-rails"
+gem "turbolinks"
+gem "jbuilder"
+gem "sdoc", group: :doc
+gem "devise"
+gem "font-awesome-sass"
+gem "ransack"
+gem "kaminari"
+gem "font-awesome-rails"
+gem "bootstrap-kaminari-views"
+gem "carrierwave"
+gem "mini_magick"
+gem "redcarpet"
+gem "chosen-rails"
+gem "rails_param"
+gem "cocoon"
+gem "best_in_place"
+gem "ckeditor"
+gem "truncate_html"
+gem "faker", git: "https://github.com/stympy/faker"
+gem "rails_admin"
+# gem "sassc"
+gem "bootstrap-sass", "3.3.6"
+gem "jquery-rails", "~> 4.3", ">= 4.3.3"
+gem "rails-ujs", "~> 0.1.0"
+group :development, :test do
+  gem "byebug"
+  gem "mysql2"
+end
+
+group :development do
+  gem "web-console"
+  gem "spring"
+end

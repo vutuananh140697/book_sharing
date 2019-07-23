@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= full_title yield(:title) %></title>
+  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="content-web">
+    <%= render "layouts/header" %>
+
+    <div class="wrapper">
+      <%= yield %>
+    </div>
+
+    <%= render "layouts/footer" %>
+  </div>
+
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+</body>
+</html>

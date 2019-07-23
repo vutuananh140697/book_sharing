@@ -1,0 +1,124 @@
+<div class="user-page">
+	<div class="row">
+		<div class="col-lg-4 col-sm-4">
+
+      <div class="card hovercard">
+        <div class="cardheader">
+
+        </div>
+        <div class="avatar">
+          <%= image_tag @user.image.to_s %>
+        </div><br>
+        <div class="info">
+          <div class="title">
+            <a target="_blank" href="https://scripteden.com/"><%= @user.name %></a>
+          </div>
+          <div class="desc"><%= @user.username %></div>
+          <div class="desc">Email: <%= @user.email %></div>
+          <!--<div class="desc">Birth: <= @user.birth %></div>-->
+          <div class="desc">
+            Reviews: <%= @user.reviews.count %>
+          </div>
+          <div class="desc">
+            Following:
+            <a href="<%= user_following_path(@user) %>"> 
+              <strong id="following" class="stat">
+                <%= @user.following.count %>
+              </strong>
+            </a>
+          </div>
+          <div class="desc">
+            Followers: 
+            <a href="<%= user_followers_path(@user) %>">
+              <strong id="followers" class="stat">
+                <%= @user.followers.count %>
+              </strong>
+            </a>
+          </div>
+        </div>
+        <% if user_signed_in? %>
+          <% if @user.id == current_user.id %>
+            <div class="text-center profile-buttons">
+              <%= link_to "Edit", edit_user_registration_path, method: :get,
+                class: "btn btn-primary btn-sm", data: {turbolinks: false} %>
+            </div>
+          <% else %>
+            <div id="follow_form" style="margin-top: 20px;">
+              <% if current_user.following?(@user) %>
+                <%= render 'unfollow' %>
+              <% else %>
+                <%= render 'follow' %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %><br>
+        
+        <!--<div class="bigBox">-->
+        <!--  < if @user.followers.any? %>-->
+        <!--    <div class="h2Container gradientHeaderContainer">-->
+        <!--      <h2 class="brownBackground">-->
+        <!--        <= link_to user_followers_path(@user) do %>-->
+        <!--          <= @user.name %>'s Followers (<= @user.followers.size.to_s %>)-->
+        <!--        < end %>-->
+        <!--      </h2>-->
+        <!--    </div>-->
+        <!--    <div class="bigBoxBody">-->
+        <!--      <div class="bigBoxContent containerWithHeaderContent">-->
+        <!--        < @user.followers.limit(12).each do |follower| %>-->
+        <!--          <div>-->
+        <!--            <= link_to user_path(follower), class:"leftAlignedImage" do %>-->
+        <!--              <img alt="<= follower.name %>" src="<= follower.try :image %>"-->
+        <!--                title="<= follower.name %>">-->
+        <!--            < end %>-->
+        <!--          </div>-->
+        <!--        < end %>-->
+        <!--      </div>-->
+        <!--    </div>-->
+        <!--  < end %>-->
+        <!--</div>-->
+
+      </div>
+    </div>
+
+    <div class="col-lg-8 col-sm-8">
+      <div class="profile-content">
+        <div class="widget article userLists">
+          <h2><%= @user.name %>'s reviews</h2>
+          <hr>
+          <div id="list-reviews">
+            <div class="text-center" data-turbolinks="false">
+              <div class="review-pagination">
+                <%= paginate @reviews %>
+              </div>
+              <!--<p class="page-info"><= page_entries_info @reviews %></p>-->
+            </div>
+            <div class="reviews">
+              <% if @reviews.any? %>
+                <% @reviews.each do |review| %>
+                  <%= render partial: "review", locals: {review: review} %>
+                  <div class="edit-review text-right">
+                    <% if user_signed_in? && @user.id == current_user.id %>
+                      <%= link_to t("button.edit"), edit_user_review_path(current_user, review),
+                        class: "btn btn-success", data: {turbolinks: false} %>
+                      <%= link_to t("button.delete"), user_review_path(current_user, review),
+                        method: :delete, data: {confirm: t("button.confirm"), turbolinks: false},
+                        class: "btn btn-danger" %>
+                    <% end %>
+                  </div><hr>
+                <% end %>
+              <% else %>
+                <% if user_signed_in? && current_user.id == @user.id %>
+                  <%= t "users.show.no_review" %>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="review-pagination text-center" data-turbolinks="false">
+              <%= paginate @reviews %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	</div>
+</div>

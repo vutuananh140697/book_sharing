@@ -1,0 +1,30 @@
+<div class="user-followers">
+  <h1>
+    <%= link_to user_path(@user) do %>
+      <%= @user.name %>
+    <% end %>
+    &gt; Followers
+  </h1><hr><br>
+
+  <% @users.each do |user| %>
+    <div class="row follower">
+      <div class="col-sm-2">
+        <div class="follower-image">
+          <%= link_to user_path(user) do %>
+            <img alt="<%= user.name %>" src="<%= user.try :image %>">
+          <% end %>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <%= link_to user_path(user) do %>
+          <%= user.name %>
+        <% end %><br>
+        <span><%= user.reviews.count %> reviews</span> |
+        <span><%= user.rates.count %> rating</span><br>
+      </div>
+      <div class="col-sm-5 text-right">
+
+      </div>
+    </div>
+  <% end %>
+</div>

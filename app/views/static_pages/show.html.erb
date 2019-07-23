@@ -1,0 +1,239 @@
+<% provide(:title) %>
+<div class="slogan">
+</div>
+<div class="body">
+  <div class="body_resize">
+    <div class="row">
+      <div class="left col-sm-8">
+        
+        <h1>Pickup books</h1><hr>
+        <div class="owl-carousel new-movies-slide" style="width: 90%; margin: 0 5%;">
+          <% @top_books.each do |book| %>
+            <div class="movie-items">
+              <div>
+                <img src="<%= book.picture %>" alt="<%= book.title %>"
+                  title="<%= book.title %>" class="movie-poster">
+              </div>
+              <!--<div class="caption-overlay">-->
+                <div class="book-baloon">
+                  <div class="movie-caption title-font">
+                    <%= link_to book.title, book_path(book), data: {turbolinks: false} %>
+                  </div>
+                </div>
+                <div class="secondary ellipsis">
+                  <span style="color: #7d6f6f"><%= book.authors.first.name %></span>
+                </div>
+              <!--</div>-->
+            </div>
+          <% end %>
+        </div>
+        
+        
+        <% if user_signed_in? %>
+          <% if current_user.following.any? %>
+            <h1>Your following's reviews</h1><hr>
+            <% current_user.following.each do |followed| %>
+              <% followed.reviews.order(created_at: :desc).each do |review| %>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <img src="<%= review.book.picture %>" class="home-book-image">
+                  </div>
+                  <div class="col-sm-8">
+                    <h2>
+                      <%= link_to review_path(review), data: {turbolinks: false} do %>
+                        <b><%= review.book.title %></b>
+                      <% end %>
+                    </h2>
+                    <span><b><%= review.title %></b></span><br>
+                    <span class="post-date">
+                      <% if review.book.categories.any? %>
+                        <% review.book.categories.each do |category| %>
+                          <%= link_to t(category.title), category_path(category),
+                            data: {turbolinks: false} %>
+                          <% unless category == review.book.categories.last %>/<% end %>
+                        <% end %>
+                      <% end %>
+                    </span><br>
+                    <span class="post-date">
+                      Reviewed by 
+                      <%= link_to review.user.name, user_path(review.user),
+                        data: {turbolinks: false} %>
+                    </span>&nbsp;&nbsp;|
+                    <div class="wrapIcon comment">
+                      <span class="glyphicon glyphicon-time amount"></span>
+                      <span title="<%= review.created_at.to_s %>" class="amount">
+                        <%= review.created_at.strftime("%d %b %Y") %>
+                      </span>
+                    </div>&nbsp;&nbsp;|
+                    <div class="wrapIcon comment">
+                      <span class="fa fa-comments"></span>&nbsp;
+                      <p class="amount comment ng-binding">
+                        <%= review.comments.count %>
+                      </p>
+                    </div>&nbsp;&nbsp;|
+                    <div class="wrapIcon like">
+                      <span class="fa fa-thumbs-o-up"></span>&nbsp;
+                      <p class="amount like ng-binding">
+                        <%= review.likes.count %>
+                      </p>
+                    </div>
+                    <p>
+                      <%= truncate_html(review.content, length: 350, omission: ' ...') %>
+                    </p>
+                  </div>
+                </div>
+                <hr>
+              <% end %>
+              <div class="review-pagination text-center">
+                <%= paginate @reviews %>
+              </div>
+            <% end %>
+          <% else %>
+            <h1>Latest reviews</h1><hr>
+            <% @reviews.each do |review| %>
+              <div class="row">
+                <div class="col-sm-4">
+                  <img src="<%= review.book.picture %>" class="home-book-image">
+                </div>
+                <div class="col-sm-8">
+                  <h2>
+                    <%= link_to review_path(review), data: {turbolinks: false} do %>
+                      <b><%= review.book.title %></b>
+                    <% end %>
+                  </h2>
+                  <span><b><%= review.title %></b></span><br>
+                  <span class="post-date">
+                    <% if review.book.categories.any? %>
+                      <% review.book.categories.each do |category| %>
+                        <%= link_to t(category.title), category_path(category),
+                          data: {turbolinks: false} %>
+                        <% unless category == review.book.categories.last %>/<% end %>
+                      <% end %>
+                    <% end %>
+                  </span><br>
+                  <span class="post-date">
+                    Reviewed by <%= link_to review.user.name, user_path(review.user),
+                    data: {turbolinks: false} %>
+                  </span>&nbsp;&nbsp;|
+                  <div class="wrapIcon comment">
+                    <span class="glyphicon glyphicon-time amount"></span>
+                    <span title="<%= review.created_at.to_s %>" class="amount">
+                      <%= review.created_at.strftime("%d %b %Y") %>
+                    </span>
+                  </div>&nbsp;&nbsp;|
+                  <div class="wrapIcon comment">
+                    <span class="fa fa-comments"></span>&nbsp;
+                    <p class="amount comment ng-binding">
+                      <%= review.comments.count %>
+                    </p>
+                  </div>&nbsp;&nbsp;|
+                  <div class="wrapIcon like">
+                    <span class="fa fa-thumbs-o-up"></span>&nbsp;
+                    <p class="amount like ng-binding">
+                      <%= review.likes.count %>
+                    </p>
+                  </div>
+                  <p>
+                    <%= truncate_html(review.content, length: 350, omission: ' ...') %>
+                  </p>
+                </div>
+              </div>
+              <hr>
+            <% end %>
+            <div class="review-pagination text-center">
+              <%= paginate @reviews %>
+            </div>
+          <% end %>
+  
+        <% else %>
+          <h1>Latest reviews</h1><hr>
+          <% @reviews.each do |review| %>
+            <div class="row">
+              <div class="col-sm-4">
+                <img src="<%= review.book.picture %>" class="home-book-image">
+              </div>
+              <div class="col-sm-8">
+                <h2>
+                  <%= link_to review_path(review), data: {turbolinks: false} do %>
+                    <b><%= review.book.title %></b>
+                  <% end %>
+                </h2>
+                <span><b><%= review.title %></b></span><br>
+                <span class="post-date">
+                  <% if review.book.categories.any? %>
+                    <% review.book.categories.each do |category| %>
+                      <%= link_to category.title, category_path(category),
+                        data: {turbolinks: false} %>
+                      <% unless category == review.book.categories.last %>/<% end %>
+                    <% end %>
+                  <% end %>
+                </span><br>
+                <span class="post-date">
+                  Reviewed by <%= link_to review.user.name, user_path(review.user),
+                  data: {turbolinks: false} %>
+                </span>&nbsp;&nbsp;|
+                <div class="wrapIcon comment">
+                  <span class="glyphicon glyphicon-time amount"></span>
+                  <span title="<%= review.created_at.to_s %>" class="amount">
+                    <%= review.created_at.strftime("%d %b %Y") %>
+                  </span>
+                </div>&nbsp;&nbsp;|
+                <div class="wrapIcon comment">
+                  <span class="fa fa-comments"></span>&nbsp;
+                  <p class="amount comment ng-binding">
+                    <%= review.comments.count %>
+                  </p>
+                </div>&nbsp;&nbsp;|
+                <div class="wrapIcon like">
+                  <span class="fa fa-thumbs-o-up"></span>&nbsp;
+                  <p class="amount like ng-binding">
+                    <%= review.likes.count %>
+                  </p>
+                </div>
+                <p>
+                  <%= truncate_html(review.content, length: 350, omission: ' ...') %>
+                </p>
+              </div>
+            </div>
+            <hr>
+          <% end %>
+          <div class="review-pagination text-center">
+            <%= paginate @reviews %>
+          </div>
+        <% end %>
+      </div>
+  
+      <div class="right col-sm-4">
+        <div id="ranking-list">
+          <h3 class="title">Top users</h3>
+          <% @top_users.each do |user| %>
+          　<div class="row ranking-body">
+              <div class="userinfo">
+                <div class="name">
+                  <%= link_to user_path(user) do %>
+                    <b><%= user.name %></b>
+                  <% end %>
+                </div>
+                <div class="col-sm-4">
+                  <img src="<%= user.try :image %>" class="home-book-image">
+                </div>
+                <div class="col-sm-8">
+                  <!--<h3 class="home-book-title"><b><= user.name %></b></h3>-->
+                  <!--<p>Reviews: <= user.reviews.count %></p>-->
+                  <!--<p>Likes: <= user.count_getted_like %></p>-->
+                  <div class="status">
+                    <p>Reviews: <b><%= user.reviews.count %></b></p>
+                    <p>Likes: <strong><%= user.count_getted_like %></strong></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div class="headline-link">
+            <a href="#" class="icon arrow1"></a>
+          </div>
+        </div>  
+      </div>
+    </div>
+  </div>
+</div>
